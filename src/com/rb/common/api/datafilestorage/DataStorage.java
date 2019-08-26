@@ -119,6 +119,14 @@ public class DataStorage {
 		return data;
 	}
 	
+	/**
+	 * 
+	 * @param key
+	 * @param data
+	 * @throws IOException
+	 * @throws NotImplementedException
+	 * @throws BadFormatPropertyException
+	 */
 	public void setData(String key, Object data) throws IOException, NotImplementedException, BadFormatPropertyException {
 		this.refreshCache();
 		

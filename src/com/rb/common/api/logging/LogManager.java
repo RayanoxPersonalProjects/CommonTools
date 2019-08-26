@@ -21,14 +21,39 @@ public class LogManager {
 	@Autowired
 	MailLogger mailLogger;
 	
+	/**
+	 * Register the mail informations before beeing capable of sending mails
+	 * 
+	 * @param usernameFrom
+	 * @param passwordFrom
+	 * @param recipients
+	 * @param programName
+	 * @throws IOException
+	 * @throws NotImplementedException
+	 * @throws BadFormatPropertyException
+	 */
 	public void registerMailCredentials(String usernameFrom, String passwordFrom, ArrayList<String> recipients, String programName) throws IOException, NotImplementedException, BadFormatPropertyException {
 		this.mailLogger.registerCredentialsAndInitInfos(usernameFrom, passwordFrom, recipients, programName);
 	}
 	
+	/**
+	 * Try to load the mail informations previously stored, or returns null otherwise
+	 * 
+	 * @return
+	 * @throws NotImplementedException
+	 * @throws BadFormatPropertyException
+	 * @throws IOException
+	 */
 	public MailInfos loadMailInfos() throws NotImplementedException, BadFormatPropertyException, IOException {
 		return this.mailLogger.loadMailInfos();
 	}
 	
+	/**
+	 * 
+	 * @param message
+	 * @param logLevel
+	 * @param loggingWay
+	 */
 	public void log(String message, LogLevel logLevel, LoggingAction... loggingWay) {
 		ArrayList<LoggingAction> loggingWayDone = new ArrayList<>();
 		for (LoggingAction loggingAction : loggingWay) {
