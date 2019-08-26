@@ -15,6 +15,11 @@ public abstract class Logger {
 		this.log(messageError, LogLevel.ERROR);
 	}
 	
+	/**
+	 * 
+	 * @param message
+	 * @param logLevel
+	 */
 	public void log(String message, LogLevel logLevel) {
 		LocalDateTime date = LocalDateTime.now();
 		
