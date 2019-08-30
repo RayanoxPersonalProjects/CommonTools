@@ -60,6 +60,7 @@ public class LogManager {
 	 */
 	public void log(String message, LogLevel logLevel, LoggingAction... loggingWay) {
 		ArrayList<LoggingAction> loggingWayDone = new ArrayList<>();
+		loggingWay = adaptLoggingWayIfNecessary(loggingWay);
 		for (LoggingAction loggingAction : loggingWay) {
 			if(loggingWayDone.contains(loggingAction))
 				continue;
@@ -87,5 +88,13 @@ public class LogManager {
 			
 			loggingWayDone.add(loggingAction);
 		}
+	}
+
+	private LoggingAction[] adaptLoggingWayIfNecessary(LoggingAction[] loggingWay) {
+		for (LoggingAction loggingAction : loggingWay) {
+			if(loggingAction.equals(LoggingAction.All))
+				return new LoggingAction[] {loggingAction};
+		}
+		return loggingWay;
 	}
 }
