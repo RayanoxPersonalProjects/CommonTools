@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -87,6 +88,8 @@ public class DataStorage {
 				dataResult = Long.parseLong(data);
 			}else if(targetClass.equals(Time.class)) {
 				dataResult = Converter.convertStringToTime(data);
+			}else if(targetClass.equals(LocalDate.class)) {
+				dataResult = LocalDate.parse(data);
 			}else if(targetClass.equals(ArrayList.class)) {
 				dataResult = Converter.convertRecipientsStringToArraylist(data);
 			}else {
@@ -141,6 +144,9 @@ public class DataStorage {
 			this.dataCacheMap.put(key, String.valueOf((Integer) data));
 		}else if(data.getClass().equals(Time.class)) {
 			String timeString = Converter.convertTimeToString((Time) data);
+			this.dataCacheMap.put(key, timeString);
+		}else if(data.getClass().equals(LocalDate.class)) {
+			String timeString = ((LocalDate)data).toString();
 			this.dataCacheMap.put(key, timeString);
 		}else if(data.getClass().equals(Long.class)) {
 			String timeString = String.valueOf((Long) data);
