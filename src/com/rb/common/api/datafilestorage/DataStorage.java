@@ -83,6 +83,8 @@ public class DataStorage {
 				dataResult = new Integer( Integer.parseInt(data));
 			}else if(targetClass.equals(String.class)) {
 				dataResult = data;
+			}else if(targetClass.equals(Long.class)) {
+				dataResult = Long.parseLong(data);
 			}else if(targetClass.equals(Time.class)) {
 				dataResult = Converter.convertStringToTime(data);
 			}else if(targetClass.equals(ArrayList.class)) {
@@ -139,6 +141,9 @@ public class DataStorage {
 			this.dataCacheMap.put(key, String.valueOf((Integer) data));
 		}else if(data.getClass().equals(Time.class)) {
 			String timeString = Converter.convertTimeToString((Time) data);
+			this.dataCacheMap.put(key, timeString);
+		}else if(data.getClass().equals(Long.class)) {
+			String timeString = String.valueOf((Long) data);
 			this.dataCacheMap.put(key, timeString);
 		}else if(data.getClass().equals(ArrayList.class)) {
 			String timeString = Converter.convertRecipientsArraylistToString((ArrayList<String>) data);
