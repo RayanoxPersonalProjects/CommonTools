@@ -41,8 +41,10 @@ public class DataStorage {
 			int currentLine = 1;
 			while((lineData = reader.readLine()) != null) {
 				String [] lineSplitted = lineData.split("=");
-				if(lineSplitted.length != 2)
+				if(lineSplitted.length < 2)
 					throw new BadFormatPropertyException("The data conf contains a bad format property at line " + currentLine);
+				else if(lineSplitted.length > 2)
+					lineSplitted = arrangeSplittedArray(lineSplitted);
 				
 				String key = lineSplitted[0];
 				String value = lineSplitted[1];
@@ -57,6 +59,7 @@ public class DataStorage {
 		}
 	}
 	
+
 	/**
 	 * 
 	 * @param key
@@ -164,5 +167,22 @@ public class DataStorage {
 		
 		// Update the last modified time (for cache)
 		this.lastModifiedDate = this.storageFile.lastModified();
-	}	
+	}
+	
+	
+	/*
+	 *  Privates methods
+	 */
+		
+	private String[] arrangeSplittedArray(String[] lineSplitted) {
+		String[] result = new String [2];
+		result[0] = lineSplitted[0];
+		result[1] = "";
+		
+		for(int i = 1; i < lineSplitted.length; i++) {
+			result[1] += lineSplitted[i] + (i != lineSplitted.length -1 ? "=" : "");
+		}
+		
+		return result;
+	}
 }
