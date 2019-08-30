@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.rb.common.api.logging.logger.FileLogger;
 import com.rb.common.api.logging.logger.MailLogger;
+import com.rb.common.api.logging.logger.StdoutLogger;
 import com.rb.common.api.logging.mail.MailInfos;
 import com.rb.common.exceptions.BadFormatPropertyException;
 import com.rb.common.exceptions.NotImplementedException;
@@ -20,6 +21,9 @@ public class LogManager {
 	
 	@Autowired
 	MailLogger mailLogger;
+	
+	@Autowired 
+	StdoutLogger stdoutLogger;
 	
 	/**
 	 * Register the mail informations before beeing capable of sending mails
@@ -60,7 +64,7 @@ public class LogManager {
 			if(loggingWayDone.contains(loggingAction))
 				continue;
 			
-			if(loggingAction.equals(LoggingAction.Email)) {
+			if(loggingAction.equals(LoggingAction.All) || loggingAction.equals(LoggingAction.Email)) {
 				try {
 					if(!this.mailLogger.isRegistrationDone())
 						try {
@@ -75,8 +79,11 @@ public class LogManager {
 				}
 			}
 			
-			if(loggingAction.equals(LoggingAction.File))
+			if(loggingAction.equals(LoggingAction.All) || loggingAction.equals(LoggingAction.File))
 				this.fileLogger.log(message, logLevel);
+
+			if(loggingAction.equals(LoggingAction.All) || loggingAction.equals(LoggingAction.Stdout))
+				this.stdoutLogger.log(message, logLevel);
 			
 			loggingWayDone.add(loggingAction);
 		}
