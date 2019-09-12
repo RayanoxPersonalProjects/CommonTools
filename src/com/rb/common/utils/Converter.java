@@ -55,7 +55,9 @@ public class Converter {
 	}
 
 	public static ArrayList<String> convertRecipientsStringToArraylist(String recipients) {
-		return new ArrayList<String>(Arrays.asList(recipients.split(",")));
+		return recipients.isEmpty() ?
+				new ArrayList<>()
+				: new ArrayList<String>(Arrays.asList(recipients.split(",")));
 	}
 	
 }

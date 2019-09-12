@@ -41,14 +41,17 @@ public class DataStorage {
 			String lineData;
 			int currentLine = 1;
 			while((lineData = reader.readLine()) != null) {
+				String value = null;
 				String [] lineSplitted = lineData.split("=");
-				if(lineSplitted.length < 2)
+				if(lineSplitted.length == 1 && lineData.endsWith("="))
+					value = "";
+				else if(lineSplitted.length < 2)
 					throw new BadFormatPropertyException("The data conf contains a bad format property at line " + currentLine);
 				else if(lineSplitted.length > 2)
 					lineSplitted = arrangeSplittedArray(lineSplitted);
 				
 				String key = lineSplitted[0];
-				String value = lineSplitted[1];
+				value = (value == null) ? lineSplitted[1] : value;
 				
 				this.dataCacheMap.put(key, value);
 				
